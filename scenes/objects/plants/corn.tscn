@@ -1,0 +1,42 @@
+[gd_scene load_steps=10 format=3 uid="uid://bq185xv06yqvp"]
+
+[ext_resource type="Texture2D" uid="uid://ccm6of0o6fc63" path="res://assets/game/objects/basic_plants.png" id="1_aphyd"]
+[ext_resource type="Script" uid="uid://cvvg0hf1pu374" path="res://scenes/objects/plants/corn.gd" id="1_hgaca"]
+[ext_resource type="PackedScene" uid="uid://b6x3ya7v33dby" path="res://scenes/objects/plants/watering_particles.tscn" id="2_5ucl7"]
+[ext_resource type="PackedScene" uid="uid://b2unxa5qwbvjl" path="res://scenes/components/hurt_component.tscn" id="2_ofjf8"]
+[ext_resource type="PackedScene" uid="uid://cnihm7ffpe2u5" path="res://scenes/objects/plants/flowering_particles.tscn" id="3_hgaca"]
+[ext_resource type="PackedScene" uid="uid://cbkhlbdmwdqop" path="res://scenes/objects/plants/growth_cycle_component.tscn" id="5_q3ekf"]
+[ext_resource type="PackedScene" uid="uid://gjxii1jrs0tl" path="res://scenes/components/save_data_component.tscn" id="7_q3ekf"]
+[ext_resource type="Resource" uid="uid://d0in54jkqc7yk" path="res://resources/scene_data_resource.tres" id="8_310os"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q3ekf"]
+size = Vector2(13, 8)
+
+[node name="Corn" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_hgaca")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -7)
+texture = ExtResource("1_aphyd")
+hframes = 6
+vframes = 2
+frame = 1
+
+[node name="WateringParticles" parent="." instance=ExtResource("2_5ucl7")]
+position = Vector2(0, -7)
+
+[node name="FloweringParticles" parent="." instance=ExtResource("3_hgaca")]
+
+[node name="GrowthCycleComponent" parent="." instance=ExtResource("5_q3ekf")]
+
+[node name="HurtComponent" parent="." instance=ExtResource("2_ofjf8")]
+position = Vector2(0, -7)
+tool = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent"]
+position = Vector2(-1, 3)
+shape = SubResource("RectangleShape2D_q3ekf")
+
+[node name="SaveDataComponent" parent="." instance=ExtResource("7_q3ekf")]
+save_data_resource = ExtResource("8_310os")
